@@ -3,10 +3,10 @@
       :class="classObject()"
   >
     <div>
-      <h4>{{ model.title }}</h4>
-      <p>{{ model.id }}</p>
-      <p>{{ model.data }}</p>
-      <p>{{ model.description }}</p>
+      <h4>Наименование: {{ model.title }}</h4>
+      <p>ID: {{ model.id }}</p>
+      <p>Дата: {{ model.data }}</p>
+      <p>Описание: {{ model.description }}</p>
     </div>
     <div>
       <button @click="emitOnRadacted">✎</button>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  emits: ['onDone', 'onRemove'],
+  emits: ['onRemove', 'onRadacted'],
   props: {
     model: {
       required: true,

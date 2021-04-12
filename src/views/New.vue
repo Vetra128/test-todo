@@ -1,5 +1,6 @@
 <template>
   <div class="task-input my-list">
+    <h1>Новая задача</h1>
     <input v-model="title" placeholder="Title" type="text">
     <input v-model="description" placeholder="Description" type="text">
     <input v-model="id" placeholder="ID" type="number">
@@ -15,31 +16,22 @@
 
 <script>
 import { ref } from 'vue'
+import router from "../router"
+import { store } from '../store'
 export default {
-  emits: {
-    onAddTask({ title, description, id, data, status }) {
-      if(title === '' || description === '' || id === '' || data === '' || status === '') {
-        alert('Заполните поля данных')
-        return false
-      }
-      return true
-    }
-  },
-  setup(props, { emit }) {
+  setup(props, context) {
     const title = ref('')
     const description = ref('')
     const id = ref('')
     const data = ref('')
     const status = ref('')
     const onAddTask = () => {
-      emit('onAddTask', { title: title.value, description: description.value, id: id.value, data: data.value, status: status.value })
-      if (title.value !== '' && description.value !== '' && id.value !== '' && data.value !== '' && status.value !== '') {
-        title.value = ''
-        id.value = ''
-        description.value = ''
-        data.value = ''
-        status.value = ''
-      }
+       if(title.value === '' || description.value === '' || id.value === '' || data.value === '' || status.value === '') {
+         alert('Заполните поля данных')
+       } else {
+         store.commit('addLocalTask',{ title: title.value, description: description.value, id: id.value, data: data.value, status: status.value })
+         router.push('/')
+       }
     }
     return {
       title,
